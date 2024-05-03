@@ -18,7 +18,7 @@ pipeline {
             steps {
 
                 script {
-                    sh "python $PYTHON_SCRIPT"
+                    bat "python $PYTHON_SCRIPT"
                 }
             }
         }
@@ -26,16 +26,16 @@ pipeline {
         stage('Terraform plan') {
             steps {
 
-                sh 'terraform init'
+                bat 'terraform init'
 
-                sh 'terraform plan -var-file=$TFVARS_FILE'
+                bat 'terraform plan -var-file=$TFVARS_FILE'
             }
         }
 
         stage('Terraform apply') {
             steps {
 
-                sh 'terraform apply -var-file=$TFVARS_FILE -auto-approve'
+                bat 'terraform apply -var-file=$TFVARS_FILE -auto-approve'
             }
         }
     }
