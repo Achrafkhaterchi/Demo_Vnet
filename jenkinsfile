@@ -1,0 +1,46 @@
+pipeline {
+    agent any
+
+    environment {
+        TFVARS_FILE = 'variables.tfvars'
+        PYTHON_SCRIPT = 'script.py'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+
+                git 'https://Achrafkhaterchi/votre-repo.git'
+            }
+        }
+
+        stage('Execute Python script') {
+            steps {
+
+                script {
+                    sh "python $PYTHON_SCRIPT"
+                }
+            }
+        }
+
+        stage('Terraform plan') {
+            steps {
+
+                sh 'terraform init'
+
+                sh 'terraform plan -var-file=$TFVARS_FILE'
+            }
+        }
+
+        stage('Terraform apply') {
+            steps {
+
+                sh 'terraform apply -var-file=$TFVARS_FILE -auto-approve'
+            }
+        }
+    }
+}
+
+
+
+

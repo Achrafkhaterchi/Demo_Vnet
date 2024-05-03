@@ -1,0 +1,29 @@
+vnet_name = "{{ vnet_name }}"
+
+resource_group_name = "{{ resource_group_name }}"
+
+use_for_each = {{ use_for_each }}
+
+vnet_location = "{{ vnet_location }}"
+
+address_space = ["{{ address_space }}"]
+
+subnet_names = [{% for subnet_name in subnet_names %}"{{subnet_name}}"{% if not loop.last %},{% endif %}{% endfor %}]
+
+subnet_prefixes = [{% for subnet_prefix in subnet_prefixes %}"{{subnet_prefix}}"{% if not loop.last %},{% endif %}{% endfor %}]
+
+nsg_ids ={ {% for subnet, nsg_id in nsg_ids.items() %}
+	{{ subnet }} = "{{ nsg_id }}"{% if not loop.last %}{% endif %}{% endfor %}
+}
+
+route_tables_ids ={ {% for subnet, route_table_id in route_tables_ids.items() %}
+	{{ subnet }} = "{{ route_table_id }}"{% if not loop.last %}{% endif %}{% endfor %}
+}
+
+subnet_service_endpoints = { {% for subnet, endpoints in subnet_service_endpoints.items() %}
+    {{ subnet }} = [{% for endpoint in endpoints %}"{{ endpoint }}"{% if not loop.last %},{% endif %}{% endfor %}]{% endfor %}
+}
+
+tags = { {% for key, value in tags.items() %}
+	{{ key }} = "{{ value }}"{% endfor %}
+}
