@@ -3,14 +3,14 @@ pipeline {
 
     environment {
         TFVARS_FILE = 'variables.tfvars'
-        PYTHON_SCRIPT = 'script.py'
+        PYTHON_SCRIPT = 'Vnet.py'
     }
 
     stages {
         stage('Checkout') {
             steps {
 
-                git 'https://Achrafkhaterchi/votre-repo.git'
+                git 'https://Achrafkhaterchi/Demo_Vnet.git'
             }
         }
 
