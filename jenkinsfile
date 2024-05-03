@@ -10,7 +10,7 @@ pipeline {
         stage('Checkout') {
             steps {
 
-                git 'https://Achrafkhaterchi/Demo_Vnet.git'
+                git 'https://github.com/Achrafkhaterchi/Demo_Vnet.git'
             }
         }
 
