@@ -1,46 +1,51 @@
 pipeline {
     agent any
 
-    environment {
-        TFVARS_FILE = 'vnet/variables.tfvars'
-        PYTHON_SCRIPT = 'vnet/Vnet.py'
-    }
-
     stages {
         stage('Checkout') {
             steps {
-
+                // Checkout du code depuis GitHub
                 git 'https://github.com/Achrafkhaterchi/Demo_Vnet.git'
             }
         }
-
-        stage('Execute Python script') {
+        stage('Build Docker Image') {
             steps {
-
+                // Construction de l'image Docker
                 script {
-                    bat "python $PYTHON_SCRIPT"
+                    docker.build('VnetImg')
                 }
             }
         }
-
-        stage('Terraform plan') {
+        stage('Run Docker Container') {
             steps {
-
-                bat 'terraform init'
-
-                bat 'terraform plan -var-file=$TFVARS_FILE'
+                // Exécution du conteneur Docker en utilisant l'image construite précédemment
+                script {
+                    docker.image('VnetImg').run()
+                }
             }
         }
-
-        stage('Terraform apply') {
+        stage('Execute Python Script') {
             steps {
-
-                bat 'terraform apply -var-file=$TFVARS_FILE -auto-approve'
+                // Exécution du script Python à l'intérieur du conteneur Docker
+                script {
+                    docker.image('VnetImg').inside {
+                        bat 'python vnet.py'
+                    }
+                }
+            }
+        }
+        stage('Deploy with Terraform') {
+            steps {
+                // Exécution des commandes Terraform à l'intérieur du conteneur Docker
+                script {
+                    docker.image('mVnetImg').inside {
+                        bat 'terraform init vnet/'
+                        bat 'terraform plan -var-file=vnet/variables.tfvars vnet/'
+                        bat 'terraform apply -var-file=vnet/variables.tfvars vnet/'
+                    }
+                }
             }
         }
     }
 }
-
-
-
 
