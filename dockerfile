@@ -2,7 +2,7 @@ FROM python:3.8
 
 WORKDIR /app
 
-COPY vnet/vnet.py /app/vnet.py
+COPY vnet/Vnet.py /app/vnet.py
 COPY vnet/templates/vnet.xlsx /app/vnet.xlsx
 COPY vnet/templates/vnet.j2 /app/vnet.j2
 
