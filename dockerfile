@@ -21,6 +21,11 @@ RUN apt-get update && \
     mv terraform /usr/local/bin/ && \
     rm terraform_1.0.0_linux_amd64.zip
 
+# Installer Azure CLI
+RUN apt-get update && \
+    apt-get install -y curl gnupg && \
+    curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+
 # Copier les fichiers Terraform dans le conteneur
 COPY vnet/ /app/vnet/
 
