@@ -28,7 +28,7 @@ pipeline {
             steps {
                 // Exécution du script Python à l'intérieur du conteneur Docker
                 script {
-                    docker.image('vnetimg').inside("${WORKSPACE}") {
+                    docker.image('vnetimg').inside("${context.WORKSPACE}") {
                         bat 'python vnet.py'
                     }
                 }
@@ -38,7 +38,7 @@ pipeline {
             steps {
                 // Exécution des commandes Terraform à l'intérieur du conteneur Docker
                 script {
-                    docker.image('vnetimg').inside("${WORKSPACE}") {
+                    docker.image('vnetimg').inside("${context.WORKSPACE}") {
                         bat 'terraform init vnet/'
                         bat 'terraform plan -var-file=vnet/variables.tfvars vnet/'
                         bat 'terraform apply -var-file=vnet/variables.tfvars vnet/'
