@@ -6,7 +6,9 @@ COPY vnet/Vnet.py /app/vnet.py
 COPY vnet/templates/vnet.xlsx /app/vnet.xlsx
 COPY vnet/templates/vnet.j2 /app/vnet.j2
 
-#RUN pip install -r requirements.txt
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
 
 RUN apt-get update && \
     apt-get install -y wget unzip && \
@@ -14,5 +16,5 @@ RUN apt-get update && \
     unzip terraform_1.0.0_linux_amd64.zip && \
     mv terraform /usr/local/bin/ && \
     rm terraform_1.0.0_linux_amd64.zip
-
+COPY . .
 CMD ["python", "vnet.py"]
