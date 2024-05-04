@@ -6,6 +6,8 @@ WORKDIR /app
 COPY vnet/Vnet.py /app/vnet.py
 COPY vnet/templates/vnet.xlsx /app/vnet.xlsx
 COPY vnet/templates/vnet.j2 /app/vnet.j2
+COPY vnet/main.tf /app/main.tf
+COPY vnet/variables.tf /app/variables.tf
 
 # Copier le fichier des dépendances Python et installer les dépendances
 COPY requirements.txt .
