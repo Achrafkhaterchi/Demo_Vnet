@@ -30,4 +30,4 @@ RUN apt-get update && \
 COPY vnet/ /app/vnet/
 
 # Exécuter les commandes Terraform lors du démarrage du conteneur
-CMD ["sh", "-c", "dir && cd vnet && dir && az login && python vnet.py && terraform init && terraform plan -var-file=variables.tfvars && terraform apply -var-file=variables.tfvars"]
+CMD ["sh", "-c", "dir && cd vnet && dir && cd templates && dir && az login && python vnet.py && terraform init && terraform plan -var-file=variables.tfvars && terraform apply -var-file=variables.tfvars"]
