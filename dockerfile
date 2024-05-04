@@ -6,7 +6,7 @@ COPY vnet/Vnet.py /app/vnet.py
 COPY vnet/templates/vnet.xlsx /app/vnet.xlsx
 COPY vnet/templates/vnet.j2 /app/vnet.j2
 
-RUN pip install -r requirements.txt
+#RUN pip install -r requirements.txt
 
 RUN apt-get update && \
     apt-get install -y wget unzip && \
