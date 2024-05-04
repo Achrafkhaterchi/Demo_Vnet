@@ -12,7 +12,7 @@ pipeline {
             steps {
                 // Construction de l'image Docker
                 script {
-                    docker.build('VnetImg')
+                    docker.build('vnetimg')
                 }
             }
         }
