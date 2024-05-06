@@ -29,7 +29,7 @@ pipeline {
             steps {
                 dir('vnet/'){
                     // Planification des modifications Terraform
-                    sh 'terraform plan -var-file=vnet/variables.tfvars'
+                    sh 'terraform plan' //-var-file=vnet/variables.tfvars
                 }
             }
         }
@@ -38,7 +38,7 @@ pipeline {
             steps {
                 dir('vnet/'){
                 // Application des modifications Terraform
-                sh 'terraform apply -auto-approve -var-file=vnet/variables.tfvars'
+                sh 'terraform apply -auto-approve' //-var-file=vnet/variables.tfvars
                 }
             }
         }
