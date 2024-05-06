@@ -6,8 +6,8 @@ from jinja2 import Template
 parent_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Construire les chemins absolus à partir du répertoire parent
-excel_file_path = os.path.join(parent_dir, 'vnet.xlsx')
-template_file_path = os.path.join(parent_dir, 'vnet.j2')
+excel_file_path = os.path.join(parent_dir, 'templates/vnet.xlsx')
+template_file_path = os.path.join(parent_dir, 'templates/vnet.j2')
 output_file_path = os.path.join(parent_dir, 'variables.tfvars')
 
 # Charger les données depuis le fichier Excel
