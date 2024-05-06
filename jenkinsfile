@@ -7,11 +7,12 @@ pipeline {
                 // Checkout du code depuis votre référentiel git, par exemple
                 git 'https://github.com/Achrafkhaterchi/Demo_Vnet.git'
                 
+                bat 'python3 --version'
                 // Installation des dépendances Python (si nécessaire)
-                bat 'pip install -r requirements.txt'
+                bat 'python3 install -r requirements.txt'
                 
                 // Exécution du script Python
-                bat 'python Vnet.py vnet.xlsx vnet.j2'
+                bat 'python3 Vnet.py vnet.xlsx vnet.j2'
                 
                 // Vous pouvez aussi passer des arguments comme des variables d'environnement
                 // sh 'python mon_script.py $FICHIER_EXCEL $TEMPLATE_J2'
