@@ -18,7 +18,7 @@ pipeline {
                 // sh 'python mon_script.py $FICHIER_EXCEL $TEMPLATE_J2'
                 
                 // Si votre script génère un fichier de sortie, vous pouvez l'archiver
-                archiveArtifacts 'variables.tfvars'
+                archiveArtifacts 'vnet/variables.tfvars'
             }
         }
     }
