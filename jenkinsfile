@@ -16,6 +16,16 @@ pipeline {
             }
         }
 
+        stage('Azure Login') {
+            steps {
+                script {
+                    // Authentification avec Azure CLI
+                    azureCredentialsBinding(credentialsId: 'your-azure-credentials-id', 
+                                            subscriptionId: 'your-subscription-id')
+                }
+            }
+        }
+
         stage('Terraform Init') {
             steps {
                 // Initialisation de Terraform (nécessaire avant de planifier ou d'appliquer des modifications)
