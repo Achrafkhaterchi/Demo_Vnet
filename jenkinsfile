@@ -18,7 +18,7 @@ pipeline {
         stage('Terraform Init') {
             steps {
                 // Initialisation de Terraform (nécessaire avant de planifier ou d'appliquer des modifications)
-                cd('vnet/') {
+                dir('vnet/') {
                     // Initialisation de Terraform
                     sh 'terraform init'
                 }
