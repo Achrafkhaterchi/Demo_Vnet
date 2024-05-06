@@ -18,21 +18,21 @@ pipeline {
         stage('Terraform Init') {
             steps {
                 // Initialisation de Terraform (nécessaire avant de planifier ou d'appliquer des modifications)
-                sh 'terraform init vnet/'
+                sh 'terraform init -chdir=vnet/'
             }
         }
 
         stage('Terraform Plan') {
             steps {
                 // Planification des modifications Terraform
-                sh 'terraform plan -var-file=vnet/variables.tfvars vnet/'
+                sh 'terraform plan -var-file=vnet/variables.tfvars -chdir=vnet/'
             }
         }
 
         stage('Terraform Apply') {
             steps {
                 // Application des modifications Terraform
-                sh 'terraform apply -auto-approve -var-file=vnet/variables.tfvars vnet/'
+                sh 'terraform apply -auto-approve -var-file=vnet/variables.tfvars -chdir=vnet/'
             }
         }
     }
