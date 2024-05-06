@@ -1,29 +1,30 @@
 pipeline {
     agent any
-
+    
     stages {
-        stage('Checkout') {
+        stage('Build') {
             steps {
-                // Checkout du code depuis GitHub
+                // Checkout du code depuis votre référentiel git, par exemple
                 git 'https://github.com/Achrafkhaterchi/Demo_Vnet.git'
-            }
-        }
-        stage('Build Docker Image') {
-            steps {
-                // Construction de l'image Docker
-                script {
-                    docker.build('vnetimg')
-                }
-            }
-        }
-        stage('Run Docker Container') {
-            steps {
-                // Exécution du conteneur Docker en utilisant l'image construite précédemment
-                script {
-                    docker.image('vnetimg').run()
-                }
+                
+                // Installation des dépendances Python (si nécessaire)
+                bat 'pip install -r requirements.txt'
+                
+                // Exécution du script Python
+                sh 'python Vnet.py vnet.xlsx vnet.j2'
+                
+                // Vous pouvez aussi passer des arguments comme des variables d'environnement
+                // sh 'python mon_script.py $FICHIER_EXCEL $TEMPLATE_J2'
+                
+                // Si votre script génère un fichier de sortie, vous pouvez l'archiver
+                archiveArtifacts 'variables.tfvars'
             }
         }
     }
+    
+    post {
+      success {
+          echo 'Le script s\'est exécuté avec succès !'
+        }
+    }
 }
-
