@@ -11,7 +11,7 @@ pipeline {
                 bat 'pip install -r requirements.txt'
                 
                 // Exécution du script Python
-                sh 'python Vnet.py vnet.xlsx vnet.j2'
+                bat 'python Vnet.py vnet.xlsx vnet.j2'
                 
                 // Vous pouvez aussi passer des arguments comme des variables d'environnement
                 // sh 'python mon_script.py $FICHIER_EXCEL $TEMPLATE_J2'
