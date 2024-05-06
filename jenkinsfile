@@ -4,33 +4,26 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                // Checkout du code depuis votre référentiel git
                 git 'https://github.com/Achrafkhaterchi/Demo_Vnet.git'
 
-                // Exécution du script Python pour générer le fichier variables.tfvars
                 sh 'python3 vnet/Vnet.py vnet/templates/vnet.xlsx vnet/templates/vnet.j2'
 
-                // Si votre script génère un fichier de sortie, vous pouvez l'archiver
                 archiveArtifacts 'vnet/variables.tfvars'
-                sh 'ls -la vnet/'
             }
         }
 
-        stage('Azure Login') {
+        /*stage('Azure Login') {
             steps {
                 script {
                     // Authentification avec Azure CLI
-                    azureCredentialsBinding(credentialsId: 'your-azure-credentials-id', 
-                                            subscriptionId: 'your-subscription-id')
+                    azureCredentialsBinding(credentialsId: 'your-azure-credentials-id', subscriptionId: 'your-subscription-id')
                 }
             }
-        }
+        }*/
 
         stage('Terraform Init') {
             steps {
-                // Initialisation de Terraform (nécessaire avant de planifier ou d'appliquer des modifications)
                 dir('vnet/') {
-                    // Initialisation de Terraform
                     sh 'terraform init'
                 }
             }
@@ -39,8 +32,7 @@ pipeline {
         stage('Terraform Plan') {
             steps {
                 dir('vnet/'){
-                    // Planification des modifications Terraform
-                    sh 'terraform plan -var-file=variables.tfvars'
+                    sh 'terraform plan --auto-approve -var-file=variables.tfvars'
                 }
             }
         }
@@ -48,7 +40,6 @@ pipeline {
         stage('Terraform Apply') {
             steps {
                 dir('vnet/'){
-                // Application des modifications Terraform
                 sh 'terraform apply -auto-approve -var-file=variables.tfvars'
                 }
             }
