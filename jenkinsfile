@@ -1,31 +1,45 @@
 pipeline {
     agent any
-    
+
     stages {
         stage('Build') {
             steps {
-                // Checkout du code depuis votre référentiel git, par exemple
+                // Checkout du code depuis votre référentiel git
                 git 'https://github.com/Achrafkhaterchi/Demo_Vnet.git'
-                
-                sh 'python3 --version'
-                // Installation des dépendances Python (si nécessaire)
-                //sh 'python3 install -r requirements.txt'
-                
-                // Exécution du script Python
+
+                // Exécution du script Python pour générer le fichier variables.tfvars
                 sh 'python3 vnet/Vnet.py vnet/templates/vnet.xlsx vnet/templates/vnet.j2'
-                
-                // Vous pouvez aussi passer des arguments comme des variables d'environnement
-                // sh 'python mon_script.py $FICHIER_EXCEL $TEMPLATE_J2'
-                
+
                 // Si votre script génère un fichier de sortie, vous pouvez l'archiver
                 archiveArtifacts 'vnet/variables.tfvars'
             }
         }
+
+        stage('Terraform Init') {
+            steps {
+                // Initialisation de Terraform (nécessaire avant de planifier ou d'appliquer des modifications)
+                sh 'terraform init vnet/'
+            }
+        }
+
+        stage('Terraform Plan') {
+            steps {
+                // Planification des modifications Terraform
+                sh 'terraform plan -var-file=vnet/variables.tfvars vnet/'
+            }
+        }
+
+        stage('Terraform Apply') {
+            steps {
+                // Application des modifications Terraform
+                sh 'terraform apply -auto-approve -var-file=vnet/variables.tfvars vnet/'
+            }
+        }
     }
-    
+
     post {
-      success {
-          echo 'Le script s\'est exécuté avec succès !'
+        success {
+            echo 'La ressource est créee dans Azure avec succès !'
         }
     }
 }
