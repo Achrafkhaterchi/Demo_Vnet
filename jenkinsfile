@@ -17,25 +17,31 @@ pipeline {
 
         stage('Terraform Init') {
             steps {
-                // Initialisation de Terraform (nécessaire avant de planifier ou d'appliquer des modifications)
-                sh 'terraform init -chdir=vnet/'
+                // Navigation vers le répertoire contenant les fichiers Terraform
+                cd('vnet/') {
+                    // Initialisation de Terraform
+                    sh 'terraform init'
+                }
             }
         }
 
         stage('Terraform Plan') {
             steps {
-                // Planification des modifications Terraform
-                sh 'terraform plan -var-file=vnet/variables.tfvars -chdir=vnet/'
+                cd('vnet/') {
+                    // Planification des modifications Terraform
+                    sh 'terraform plan -var-file=vnet/variables.tfvars'
+                }
             }
         }
 
         stage('Terraform Apply') {
             steps {
-                // Application des modifications Terraform
-                sh 'terraform apply -auto-approve -var-file=vnet/variables.tfvars -chdir=vnet/'
+                cd('vnet/') {
+                    // Application des modifications Terraform
+                    sh 'terraform apply -auto-approve -var-file=vnet/variables.tfvars'
+                }
             }
         }
-    }
 
     post {
         success {
