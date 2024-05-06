@@ -12,6 +12,7 @@ pipeline {
 
                 // Si votre script génère un fichier de sortie, vous pouvez l'archiver
                 archiveArtifacts 'vnet/variables.tfvars'
+                sh 'ls -la vnet/'
             }
         }
 
