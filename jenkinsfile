@@ -15,7 +15,6 @@ pipeline {
         stage('Terraform Init') {
             steps {
                 dir('vnet/') {
-                    sh'ls'
                     sh 'terraform init'
                 }
             }
