@@ -12,18 +12,10 @@ pipeline {
             }
         }
 
-        /*stage('Azure Login') {
-            steps {
-                script {
-                    // Authentification avec Azure CLI
-                    azureCredentialsBinding(credentialsId: 'your-azure-credentials-id', subscriptionId: 'your-subscription-id')
-                }
-            }
-        }*/
-
         stage('Terraform Init') {
             steps {
                 dir('vnet/') {
+                    sh'ls'
                     sh 'terraform init'
                 }
             }
