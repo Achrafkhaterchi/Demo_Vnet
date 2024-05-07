@@ -1,6 +1,5 @@
 provider "azurerm" {
   features {}
-  tenant_id ="a4fc18e6-5665-4088-b457-4f7dc1c1f28b"
 }
 
 resource "azurerm_resource_group" "example" {
