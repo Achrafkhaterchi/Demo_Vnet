@@ -48,8 +48,8 @@ data = {
     'subnet_names': subnet_names,
     'subnet_prefixes': subnet_prefixes,
     'subnet_service_endpoints': subnet_service_endpoints,
-    'tags': tags
-    'vnet_name':vnet_name,
+    'tags': tags,
+    'vnet_name':vnet_name
 
 }
 
