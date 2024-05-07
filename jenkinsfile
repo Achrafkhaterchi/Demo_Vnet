@@ -39,7 +39,7 @@ pipeline {
         stage('Terraform Destroy') {
             steps {
                 dir('vnet/'){
-                sh 'terraform destroy -auto-approve tfplan'
+                sh 'terraform destroy -auto-approve'
                 }
             }
         }
