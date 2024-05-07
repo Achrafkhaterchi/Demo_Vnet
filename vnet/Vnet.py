@@ -21,6 +21,8 @@ address_space = df['address_space'].iloc[0]
 route_tables_ids = dict(zip(df['subnet_names'], df['route_table_id']))
 subnet_names = df['subnet_names'].tolist()
 subnet_prefixes = df['subnet_prefixes'].tolist()
+vnet_name = df['vnet_name'].iloc[0]
+
 
 subnet_service_endpoints = {}
 for index, row in df.iterrows():
@@ -47,6 +49,8 @@ data = {
     'subnet_prefixes': subnet_prefixes,
     'subnet_service_endpoints': subnet_service_endpoints,
     'tags': tags
+    'vnet_name':vnet_name,
+
 }
 
 # Charger le modèle Jinja2
