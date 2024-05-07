@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('TFVARS') {
+        /*stage('TFVARS') {
             steps {
                 git 'https://github.com/Achrafkhaterchi/Demo_Vnet.git'
 
@@ -34,15 +34,15 @@ pipeline {
                 sh 'terraform apply -auto-approve tfplan'
                 }
             }
-        }
+        }*/
 
-        /*stage('Terraform Destroy') {
+        stage('Terraform Destroy') {
             steps {
                 dir('vnet/'){
                 sh 'terraform destroy -auto-approve tfplan'
                 }
             }
-        }*/
+        }
     }
 
     post {
