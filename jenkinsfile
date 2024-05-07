@@ -23,7 +23,7 @@ pipeline {
         stage('Terraform Plan') {
             steps {
                 dir('vnet/'){
-                    sh 'terraform plan -var-file=variables.tfvars'
+                    sh 'terraform plan -var-file="variables.tfvars"'
                 }
             }
         }
@@ -31,7 +31,7 @@ pipeline {
         stage('Terraform Apply') {
             steps {
                 dir('vnet/'){
-                sh 'terraform apply -auto-approve -var-file="variables.tfvars"'
+                sh 'terraform apply -auto-approve -var-file=variables.tfvars'
                 }
             }
         }
