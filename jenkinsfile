@@ -32,7 +32,7 @@ pipeline {
         stage('Terraform Plan') {
             steps {
                 dir('vnet/'){
-                    sh 'terraform plan --auto-approve -var-file=variables.tfvars'
+                    sh 'terraform plan -var-file=variables.tfvars'
                 }
             }
         }
